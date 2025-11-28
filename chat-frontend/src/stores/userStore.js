@@ -1,15 +1,20 @@
 import { defineStore } from 'pinia';
 
-const NICKNAME_KEY = 'nickname';
-
 export const useUserStore = defineStore('user', {
   state: () => ({
-    nickname: localStorage.getItem(NICKNAME_KEY) || '',
+    nickname: "",
   }),
+
   actions: {
     setNickname(name) {
       this.nickname = name;
-      localStorage.setItem(NICKNAME_KEY, name);
+
+      if (!name) {
+        // null, undefined, "", 빈값이면 완전히 제거
+        localStorage.removeItem("nickname");
+      } else {
+        localStorage.setItem("nickname", name);
+      }
     },
   },
 });

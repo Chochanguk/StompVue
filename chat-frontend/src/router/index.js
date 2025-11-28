@@ -1,13 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import HomePage from '@/pages/HomePage.vue';
 import ChatRoomList from '@/pages/ChatRoomList.vue';
 import ChatRoomPage from '@/pages/ChatRoomPage.vue';
 
 const routes = [
-  { path: '/', name: 'home', component: HomePage },
+  // ✅ 홈페이지는 자동으로 /rooms 로 이동
+  { path: '/', redirect: '/rooms' },
+
   { path: '/rooms', name: 'rooms', component: ChatRoomList },
-  { path: '/rooms/:roomId', name: 'room', component: ChatRoomPage, props: true },
+
+  {
+    path: '/rooms/:roomId/:roomName?',
+    name: 'room',
+    component: ChatRoomPage,
+    props: true
+  }
 ];
 
 const router = createRouter({
